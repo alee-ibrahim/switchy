@@ -1,0 +1,45 @@
+# Local development: Postgres only. Run the app natively (npm run dev) so it
+# can use the host's NDI runtime and multicast/mDNS on the AV network.
+name: switchy
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: switchy
+      POSTGRES_PASSWORD: switchy   # dev only
+      POSTGRES_DB: switchy
+    ports:
+      - "127.0.0.1:55440:5432"
+    volumes:
+      - db:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U switchy"]
+      interval: 5s
+      retries: 10
+
+  # Full container (optional). Needs the NDI runtime baked in (see Dockerfile)
+  # and host networking for mDNS; host networking only works on Linux hosts.
+  switchy:
+    profiles: [app]
+    image: switchy:local
+    build:
+      context: .
+      args:
+        INSTALL_NDI_RUNTIME: "false"
+    network_mode: host
+    environment:
+      DATABASE_URL: postgres://switchy:switchy@127.0.0.1:55440/switchy
+      PORT: "8090"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db:
+
+# If Docker's default address pool clashes with your LAN, pin a free subnet:
+# networks:
+#   default:
+#     ipam:
+#       config:
+#         - subnet: <a free /24>

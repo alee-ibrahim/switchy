@@ -1,0 +1,11 @@
+node_modules
+web/node_modules
+dist
+web/dist
+.env
+.env.*
+!.env.example
+.git
+*.log
+models
+test/fixtures/private

@@ -1,0 +1,59 @@
+{
+  "name": "switchy",
+  "version": "0.1.0",
+  "description": "Microphone-triggered camera switching for conference rooms: Brähler DCen mic events -> PTZ presets, speaker tracking and NDI program output",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=.env src/server.ts",
+    "dev:web": "npm --prefix web run dev",
+    "build": "tsc -p tsconfig.build.json && npm --prefix web run build",
+    "start": "node --env-file-if-exists=.env dist/server.js",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json && npm --prefix web run typecheck",
+    "db:generate": "drizzle-kit generate",
+    "db:up": "docker compose up -d db",
+    "build:web": "npm --prefix web run build",
+    "models": "tsx src/engine/autoframe/fetch-model.ts"
+  },
+  "keywords": [
+    "ndi",
+    "ptz",
+    "birddog",
+    "visca",
+    "brahler",
+    "dcen",
+    "camera",
+    "switcher"
+  ],
+  "author": "",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "dependencies": {
+    "@fastify/static": "^10.1.10",
+    "drizzle-orm": "^0.45.4",
+    "fastify": "^5.12.8",
+    "jpeg-js": "^0.4.4",
+    "koffi": "^3.3.7",
+    "onnxruntime-node": "^1.31.1",
+    "pg": "^8.23.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "drizzle-kit": "^0.31.11",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "allowScripts": {
+    "koffi@3.3.7": true,
+    "esbuild@0.18.20": true,
+    "esbuild@0.25.12": true,
+    "esbuild@0.28.2": true,
+    "onnxruntime-node@1.31.1": false
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

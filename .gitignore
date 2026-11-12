@@ -1,0 +1,32 @@
+node_modules/
+dist/
+web/dist/
+*.log
+logs/
+
+# local config and secrets (keep the example)
+.env
+.env.*
+!.env.example
+
+# local data, DB dumps and backups
+data/
+pgdata/
+*.dump
+*.backup
+*.sql.gz
+*.pgdump
+
+# NDI runtime/SDK must never be committed
+*.dll
+*.so
+*.so.*
+*.dylib
+ndi-sdk/
+
+# downloaded models (fetched + checksummed at build/startup)
+models/
+*.onnx
+
+# frames with identifiable people: local only, never commit (public repo)
+test/fixtures/private/
