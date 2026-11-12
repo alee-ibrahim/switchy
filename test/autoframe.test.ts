@@ -160,7 +160,7 @@ const face = (cx: number, cy: number, h: number, score = 0.9): Face => ({
   ],
 });
 
-// measured on the room-11 P100 (2026-11-11), 640x360
+// measured on the test-room P100 (2026-11-11), 640x360
 const P100_CAL: Calibration = {
   points: [
     { zoom: 0, dxPerPan: -1.119e-3, dyPerTilt: 1.866e-3 },
@@ -224,7 +224,7 @@ describe('framing', () => {
     expect(computeCorrection(tiny, F, 8202, P100_CAL).kind).toBe('in-deadband');
     expect(computeCorrection(tiny, F, 8202, P100_CAL, { zoom: true }).zoomStep).toBe(1);
     expect(computeCorrection(eyes(320, 120, 0.36 * 360), F, 8202, P100_CAL, { zoom: true }).zoomStep).toBe(-1);
-    // the hand-framed range (13-27% in the room-11 log) is left alone
+    // the hand-framed range (13-27% in the test-room log) is left alone
     for (const h of [0.13, 0.2, 0.27]) expect(computeCorrection(eyes(320, 120, h * 360), F, 8202, P100_CAL, { zoom: true }).zoomStep).toBe(0);
   });
 });
@@ -486,11 +486,11 @@ describe('autoFrameOnce', () => {
 });
 
 /**
- * Replay of the 2026-11-11 21:17-21:19 room-11 test (refine on, refineZoom on,
+ * Replay of the 2026-11-11 21:17-21:19 test-room run (refine on, refineZoom on,
  * deadband 5%). The old code built absolute moves on position reads taken
  * around the preset move, which were stale or garbage, and changed zoom.
  */
-describe('replay: room-11 live test failures', () => {
+describe('replay: live test-room failures', () => {
   const scene = load(path.join(FX, 'seat5.jpg'));
   const GARBAGE: PtzPosition[] = [
     { pan: 282, tilt: -56, zoom: 6428 },
@@ -557,7 +557,7 @@ describe('replay: room-11 live test failures', () => {
 // so this only runs where both are present.
 const modelFile = path.join(process.cwd(), 'models', YUNET.file);
 const havePrivate = fs.existsSync(path.join(PRIVATE, 'seated-seat5.jpg')) && fs.existsSync(modelFile);
-describe.skipIf(!havePrivate)('YuNet on recorded room-11 frames (local only)', () => {
+describe.skipIf(!havePrivate)('YuNet on recorded test-room frames (local only)', () => {
   it('finds the seated delegate and is fast at 640x360', async () => {
     const d = new YunetDetector({ modelPath: modelFile });
     await d.warmup();
