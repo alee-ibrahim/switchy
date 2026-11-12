@@ -9,7 +9,7 @@
 # publish such an image unless the NDI licence allows your distribution.
 # Alternatively mount a runtime and set NDI_RUNTIME_DIR.
 
-FROM node:22-bookworm-slim AS build
+FROM node:25-bookworm-slim AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
@@ -24,7 +24,7 @@ RUN SWITCHY_MODELS_DIR=/app/models node dist/engine/autoframe/fetch-model.js && 
     cd node_modules/onnxruntime-node/bin/napi-v6 && rm -rf win32 darwin && \
     arch="$(node -p process.arch)" && find linux -mindepth 1 -maxdepth 1 ! -name "$arch" -exec rm -rf {} +
 
-FROM node:22-bookworm-slim AS ndi
+FROM node:25-bookworm-slim AS ndi
 ARG INSTALL_NDI_RUNTIME=false
 ARG ACCEPT_NDI_LICENSE=no
 ARG NDI_SDK_URL=https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz
@@ -38,7 +38,7 @@ RUN mkdir -p /ndi/lib && if [ "$INSTALL_NDI_RUNTIME" = "true" ]; then \
       cp "/tmp/NDI SDK for Linux/licenses/"* /ndi/ 2>/dev/null || true; \
     fi
 
-FROM node:22-bookworm-slim
+FROM node:25-bookworm-slim
 ENV NODE_ENV=production PORT=8090 NDI_RUNTIME_DIR=/opt/ndi/lib SWITCHY_MODELS_DIR=/app/models
 # avahi client lets libndi use the host's mDNS daemon when present (hostNetwork)
 RUN apt-get update && apt-get install -y --no-install-recommends libavahi-client3 && rm -rf /var/lib/apt/lists/*
