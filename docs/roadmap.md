@@ -2,7 +2,7 @@
 
 ## Phase 2: auto-framing (built, 2026-11-11)
 
-See README "Auto-framing". Sequence per room:
+See [tracking.md](tracking.md#auto-framing-optional-per-room). Sequence per room:
 
 ```
 mic on -> cut to wide -> recall seat preset -> settle -> [auto-frame: grab, detect, one move, video settle] -> cut to PTZ
@@ -19,7 +19,7 @@ Follow-ups:
 
 ## Phase 3: active tracking (built, 2026-11-11)
 
-See README "Active tracking". `refine: 'track'` keeps the speaker framed with pan/tilt velocity drive while their mic is the active shot (`src/engine/autoframe/track-controller.ts`: Kalman + ByteTrack-style association, Smith-predicted PD with hysteresis, measured speed table with online scale; `tracker.ts`: 10 Hz loop, watchdog, explicit stops).
+See [tracking.md](tracking.md#active-tracking-optional-per-room). `refine: 'track'` keeps the speaker framed with pan/tilt velocity drive while their mic is the active shot (`src/engine/autoframe/track-controller.ts`: Kalman + ByteTrack-style association, Smith-predicted PD with hysteresis, measured speed table with online scale; `tracker.ts`: 10 Hz loop, watchdog, explicit stops).
 
 Follow-ups:
 
@@ -30,7 +30,7 @@ Follow-ups:
 ## Other follow-ups
 
 - "Switcher" program output mode: receive, decode, mix (real transitions, no hitch) and re-encode, per room. Plug it in behind `ProgramOutput`.
-- Split the engine into its own process or pod (hostNetwork) and keep the UI/API as a normal Kubernetes app (see `docs/deploy.md`).
+- Split the engine into its own process or pod (hostNetwork) and keep the UI/API as a normal Kubernetes app (see [deploy.md](deploy.md)).
 - Native OIDC auth mode.
 - Sony CGI driver, if VISCA-over-IP turns out to be locked or needs authentication on the BRC-X400.
 - Persist the event log (currently an in-memory ring of 300 entries per room).
