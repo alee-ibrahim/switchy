@@ -28,11 +28,11 @@
   "license": "AGPL-3.0-only",
   "type": "module",
   "dependencies": {
-    "@fastify/static": "^10.1.10",
+    "@fastify/static": "^10.1.12",
     "drizzle-orm": "^0.45.4",
     "fastify": "^5.12.8",
     "jpeg-js": "^0.4.4",
-    "koffi": "^3.3.7",
+    "koffi": "^3.3.8",
     "onnxruntime-node": "^1.31.1",
     "pg": "^8.23.1",
     "zod": "^4.6.7"
@@ -43,10 +43,10 @@
     "drizzle-kit": "^0.31.11",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   },
   "allowScripts": {
-    "koffi@3.3.7": true,
+    "koffi@3.3.8": true,
     "esbuild@0.18.20": true,
     "esbuild@0.25.12": true,
     "esbuild@0.28.2": true,
