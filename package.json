@@ -4,14 +4,14 @@
   "description": "Microphone-triggered camera switching for conference rooms: Brähler DCen mic events -> PTZ presets, speaker tracking and NDI program output",
   "scripts": {
     "dev": "tsx watch --env-file-if-exists=.env src/server.ts",
-    "dev:web": "npm --prefix web run dev",
-    "build": "tsc -p tsconfig.build.json && npm --prefix web run build",
+    "dev:web": "pnpm -C web dev",
+    "build": "tsc -p tsconfig.build.json && pnpm -C web build",
     "start": "node --env-file-if-exists=.env dist/server.js",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit -p tsconfig.json && npm --prefix web run typecheck",
+    "typecheck": "tsc --noEmit -p tsconfig.json && pnpm -C web typecheck",
     "db:generate": "drizzle-kit generate",
     "db:up": "docker compose up -d db",
-    "build:web": "npm --prefix web run build",
+    "build:web": "pnpm -C web build",
     "models": "tsx src/engine/autoframe/fetch-model.ts"
   },
   "keywords": [
@@ -45,14 +45,8 @@
     "typescript": "^7.0.2",
     "vitest": "^5.1.1"
   },
-  "allowScripts": {
-    "koffi@3.3.8": true,
-    "esbuild@0.18.20": true,
-    "esbuild@0.25.12": true,
-    "esbuild@0.28.2": true,
-    "onnxruntime-node@1.31.1": false
-  },
   "private": true,
+  "packageManager": "pnpm@12.21.0",
   "engines": {
     "node": ">=22"
   }

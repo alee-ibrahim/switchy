@@ -10,16 +10,18 @@
 # Alternatively mount a runtime and set NDI_RUNTIME_DIR.
 
 FROM node:22-bookworm-slim AS build
+RUN npm install -g pnpm@12.21.0
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY web/package.json web/package-lock.json ./web/
-RUN npm --prefix web ci
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY web/package.json ./web/
+RUN pnpm install --frozen-lockfile
 COPY . .
-RUN npm run build && npm prune --omit=dev
+# build, then reinstall the server's production dependencies only
+RUN pnpm build && rm -rf node_modules web/node_modules && \
+    pnpm install --frozen-lockfile --prod --filter switchy
 # models for auto-framing (OpenCV Zoo YuNet, MIT; OpenMMLab RTMDet-nano person +
 # RTMPose-t keypoints, Apache-2.0; all sha256-checked) and only
-# this platform's onnxruntime binaries (the npm package ships all of them)
+# this platform's onnxruntime binaries (the package ships all of them)
 RUN SWITCHY_MODELS_DIR=/app/models node dist/engine/autoframe/fetch-model.js && \
     cd node_modules/onnxruntime-node/bin/napi-v6 && rm -rf win32 darwin && \
     arch="$(node -p process.arch)" && find linux -mindepth 1 -maxdepth 1 ! -name "$arch" -exec rm -rf {} +

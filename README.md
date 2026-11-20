@@ -28,15 +28,15 @@ Details in [docs/hardware.md](docs/hardware.md).
 
 ## Quick start
 
-Needs Node 22+, Docker (for the dev Postgres) and, for program outputs, the [NDI runtime](docs/hardware.md#ndi-runtime-required-for-program-outputs).
+Needs Node 22+ with pnpm (`corepack enable`), Docker (for the dev Postgres) and, for program outputs, the [NDI runtime](docs/hardware.md#ndi-runtime-required-for-program-outputs).
 
 ```sh
 git clone https://github.com/alee-ibrahim/switchy.git && cd switchy
-npm ci && npm --prefix web ci
+pnpm install
 cp .env.example .env
 docker compose up -d db          # Postgres on 127.0.0.1:55440
-npm run models                   # optional: auto-framing/tracking models
-npm run build:web && npm run dev # http://localhost:8090
+pnpm models                      # optional: auto-framing/tracking models
+pnpm build:web && pnpm dev       # http://localhost:8090
 ```
 
 Then create a room in the UI, add the DCen and cameras, and map seats to presets ([docs/configuration.md](docs/configuration.md)).

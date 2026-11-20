@@ -1,6 +1,6 @@
 /**
  * Model downloads. No weights are committed: they are fetched once into the
- * models directory (Docker build, `npm run models`, or lazily on first use) and
+ * models directory (Docker build, `pnpm models`, or lazily on first use) and
  * verified by SHA-256.
  *
  * - YuNet face detector (OpenCV Zoo, MIT, ~230 KB).

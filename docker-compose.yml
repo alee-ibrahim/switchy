@@ -1,4 +1,4 @@
-# Local development: Postgres only. Run the app natively (npm run dev) so it
+# Local development: Postgres only. Run the app natively (pnpm dev) so it
 # can use the host's NDI runtime and multicast/mDNS on the AV network.
 name: switchy
 services:
