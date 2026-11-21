@@ -59,10 +59,10 @@ docs/              documentation
 
 ## Development
 
-- Production build: `npm run build && npm start` (serves `dist/` and `web/dist/`). Container: see the `Dockerfile` and `docker compose --profile app up` (Linux hosts only, host networking). More in [deploy.md](deploy.md).
-- Optional hot-reload UI: `npm run dev:web` serves on http://localhost:5180 and proxies `/api`.
-- Database migrations are in `drizzle/` and run automatically on startup. After changing `src/db/schema.ts`, run `npm run db:generate`.
-- Checks: `npm test`, `npm run typecheck`, `npm run build`. The parser and state-machine tests replay a recorded DCen session from `test/fixtures/`. Auto-framing tests use person-free room frames (`test/fixtures/autoframe/`). Frames with people stay out of the repo: put them in `test/fixtures/private/` (git-ignored) and run `npm run models`, and the real-detector tests run too. Tests that need the downloaded models or private frames are skipped when those are missing (as in CI).
+- Production build: `pnpm build && pnpm start` (serves `dist/` and `web/dist/`). Container: see the `Dockerfile` and `docker compose --profile app up` (Linux hosts only, host networking). More in [deploy.md](deploy.md).
+- Optional hot-reload UI: `pnpm dev:web` serves on http://localhost:5180 and proxies `/api`.
+- Database migrations are in `drizzle/` and run automatically on startup. After changing `src/db/schema.ts`, run `pnpm db:generate`.
+- Checks: `pnpm test`, `pnpm typecheck`, `pnpm build`. The parser and state-machine tests replay a recorded DCen session from `test/fixtures/`. Auto-framing tests use person-free room frames (`test/fixtures/autoframe/`). Frames with people stay out of the repo: put them in `test/fixtures/private/` (git-ignored) and run `npm run models`, and the real-detector tests run too. Tests that need the downloaded models or private frames are skipped when those are missing (as in CI).
 
 ## Limitations
 

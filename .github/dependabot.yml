@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # pnpm workspace (root and web/); one lockfile at the root
   - package-ecosystem: npm
     directory: /
     schedule:
@@ -10,19 +11,7 @@ updates:
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
     groups:
-      npm-root-minor-patch:
-        update-types: [minor, patch]
-
-  - package-ecosystem: npm
-    directory: /web
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-    ignore:
-      - dependency-name: "@types/node"
-        update-types: ["version-update:semver-major"]
-    groups:
-      npm-web-minor-patch:
+      npm-minor-patch:
         update-types: [minor, patch]
 
   - package-ecosystem: github-actions

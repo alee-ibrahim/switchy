@@ -30,7 +30,7 @@ Earlier measurements (first version, one absolute move built on position reads),
 
 ## Models
 
-No model files are committed. They are downloaded and SHA-256-checked into `models/` (or `SWITCHY_MODELS_DIR`) at Docker build, by `npm run models`, or on first use. A download whose checksum does not match is rejected. For offline sites, download the files once and point the `SWITCHY_*_URL` variables at an internal mirror (the checksums are still enforced).
+No model files are committed. They are downloaded and SHA-256-checked into `models/` (or `SWITCHY_MODELS_DIR`) at Docker build, by `pnpm models`, or on first use. A download whose checksum does not match is rejected. For offline sites, download the files once and point the `SWITCHY_*_URL` variables at an internal mirror (the checksums are still enforced).
 
 - Face: `face_detection_yunet_2026may.onnx` from [OpenCV Zoo](https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet) (MIT, Copyright (c) 2020 Shiqi Yu, about 230 KB; the 2023mar weights re-exported with dynamic input size). URL override: `SWITCHY_YUNET_URL`.
 - Head/upper-body fallback (tracking only): [RTMDet-nano person](https://github.com/open-mmlab/mmpose/tree/main/projects/rtmpose) (320x320, 4 MB) and RTMPose-t body keypoints (256x192, 13 MB), OpenMMLab, Apache-2.0, from the official mmdeploy ONNX SDK zips (the zip and the extracted `.onnx` are both checksummed). URL overrides: `SWITCHY_RTMDET_URL`, `SWITCHY_RTMPOSE_URL`. RTMPose "body7" weights were trained on public pose datasets (COCO, AI Challenger, CrowdPose, MPII, sub-JHMDB, Halpe, PoseTrack18), some of which carry research-use terms for the data itself; the released weights are Apache-2.0. Ultralytics YOLO (AGPL-3.0, compatible with this project) was not needed.

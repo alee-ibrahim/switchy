@@ -17,39 +17,31 @@ jobs:
     name: Typecheck, test, build
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      # onnxruntime-node's postinstall can fetch optional CUDA binaries on
-      # linux/x64; CI only needs the CPU build that ships in the npm package.
-      ONNXRUNTIME_NODE_INSTALL: skip
     steps:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
+      - uses: pnpm/action-setup@v6
+
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: |
-            package-lock.json
-            web/package-lock.json
+          cache: pnpm
 
-      - name: Install (root)
-        run: npm ci
-
-      - name: Install (web)
-        run: npm --prefix web ci
+      - name: Install (root and web)
+        run: pnpm install --frozen-lockfile
 
       - name: Typecheck (root and web)
-        run: npm run typecheck
+        run: pnpm typecheck
 
       # No NDI runtime and no models/ or test/fixtures/private/ here: the tests
       # that need them skip themselves (describe.skipIf); nothing is downloaded.
       - name: Unit tests
-        run: npm test
+        run: pnpm test
 
       - name: Build (server and web)
-        run: npm run build
+        run: pnpm build
 
   docker:
     name: Docker build (no push)

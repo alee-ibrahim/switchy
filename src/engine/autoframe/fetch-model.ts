@@ -1,4 +1,4 @@
-/** `npm run models` / Docker build: download and verify the face model and the head/upper-body fallback models. */
+/** `pnpm models` / Docker build: download and verify the face model and the head/upper-body fallback models. */
 import { ensureModel, modelsDir, RTMDET_PERSON, RTMPOSE_T, YUNET } from './model.js';
 
 (async () => {
